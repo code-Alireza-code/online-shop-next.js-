@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SendOTPForm from "./SendOTPForm";
 import http from "@/services/httpService";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { checkotpApi, getOtpApi } from "@/services/authService";
 import CheckOTPForm from "./CheckOTPForm";
+const RESEND_TIME = 90;
 
 function AuthPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(2);
+  const [time, setTime] = useState(RESEND_TIME);
 
   const { isPending: isSending, mutateAsync: mutateSendOtp } = useMutation({
     mutationFn: getOtpApi,
@@ -36,6 +38,7 @@ function AuthPage() {
       const data = await mutateSendOtp({ phoneNumber });
       toast.success(data.message);
       setStep(2);
+      setTime(RESEND_TIME);
     } catch (error) {
       toast.error(
         error?.response?.data?.message | "خطا درهنگام ارسال کد اعتبارسنجی"
@@ -52,6 +55,18 @@ function AuthPage() {
       toast.error(error?.response?.data?.message | "کد تایید اشتباه است");
     }
   };
+
+  useEffect(() => {
+    const timer =
+      time > 0 &&
+      setInterval(() => {
+        setTime((t) => t - 1);
+      }, 1000);
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [time]);
 
   const renderSteps = () => {
     switch (step) {
@@ -71,6 +86,8 @@ function AuthPage() {
             otp={otp}
             setOtp={setOtp}
             onSubmit={handleCheckOTP}
+            time={time}
+            onResendOTP={handleSendOTP}
           />
         );
       default:
