@@ -19,12 +19,17 @@ function AuthPage() {
 
   const handleSendOTP = async (e) => {
     e.preventDefault();
+
+    if (!phoneNumber || phoneNumber.at(0) != 0 || phoneNumber.length !== 11) {
+      toast.error("شماره به درستی وارد نشده است");
+      return;
+    }
     try {
       const data = await mutateAsync({ phoneNumber });
-      toast.success(data);
+      toast.success(data.message);
     } catch (error) {
       toast.error(
-        error.response.data.message | "خطا درهنگام ارسال کد اعتبارسنجی"
+        error?.response?.data?.message | "خطا درهنگام ارسال کد اعتبارسنجی"
       );
     }
   };
@@ -36,6 +41,7 @@ function AuthPage() {
           phoneNumber={phoneNumber}
           onChange={handlePhoneNumber}
           onSubmit={handleSendOTP}
+          isLoading={isPending}
         />
       </div>
     </div>
