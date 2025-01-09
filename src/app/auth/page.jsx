@@ -66,7 +66,12 @@ function AuthPage() {
         );
       case 2:
         return (
-          <CheckOTPForm otp={otp} setOtp={setOtp} onSubmit={handleCheckOTP} />
+          <CheckOTPForm
+            onBack={() => setStep(1)}
+            otp={otp}
+            setOtp={setOtp}
+            onSubmit={handleCheckOTP}
+          />
         );
       default:
         return null;
