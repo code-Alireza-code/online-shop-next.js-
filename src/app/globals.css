@@ -31,6 +31,17 @@
     --color-red-500: 239, 68, 68;
     --color-red-300: 252, 165, 165;
   }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
 }
 
 @layer components {

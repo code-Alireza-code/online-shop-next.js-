@@ -9,8 +9,22 @@ function CheckOTPForm({ onSubmit, otp, setOtp }) {
           value={otp}
           onChange={setOtp}
           numInputs={6}
-          renderInput={(props) => <input {...props} />}
           inputType="number"
+          renderInput={(props) => <input {...props} />}
+          inputStyle={{
+            width: "3rem",
+            height: "3.5rem",
+            padding: "0.5rem 0.2rem",
+            border: "1px solid rgb(var(--color-primary-300))",
+            borderRadius: "0.5rem",
+            direction: "ltr",
+          }}
+          containerStyle={{
+            display: "flex",
+            justifyContent: "center",
+            columnGap: "0.5rem",
+            direction: "ltr",
+          }}
         />
         <button type="submit" className="btn btn--primary w-full">
           تایید
