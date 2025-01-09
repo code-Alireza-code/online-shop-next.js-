@@ -7,5 +7,5 @@ export async function getOtpApi(data) {
 
 export async function checkotpApi(data) {
   await new Promise((res) => setTimeout(res, 1500));
-  return http.post("/user/check-otp")
+  return http.post("/user/check-otp", data).then(({ data }) => data.data);
 }

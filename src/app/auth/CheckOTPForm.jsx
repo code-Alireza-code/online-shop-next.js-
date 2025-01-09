@@ -30,7 +30,7 @@ function CheckOTPForm({ onSubmit, otp, setOtp, onBack, time, onResendOTP }) {
           }}
         />
         <div>
-          {time < 0 ? (
+          {time > 0 ? (
             <p>{time} ثانیه تا ارسال مجدد کد</p>
           ) : (
             <button
