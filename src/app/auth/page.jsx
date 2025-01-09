@@ -15,7 +15,11 @@ function AuthPage() {
   const [step, setStep] = useState(2);
   const [time, setTime] = useState(RESEND_TIME);
 
-  const { isPending: isSending, mutateAsync: mutateSendOtp } = useMutation({
+  const {
+    isPending: isSending,
+    mutateAsync: mutateSendOtp,
+    data: otpResponse,
+  } = useMutation({
     mutationFn: getOtpApi,
   });
 
@@ -39,6 +43,7 @@ function AuthPage() {
       toast.success(data.message);
       setStep(2);
       setTime(RESEND_TIME);
+      setOtp("");
     } catch (error) {
       toast.error(
         error?.response?.data?.message | "خطا درهنگام ارسال کد اعتبارسنجی"
@@ -88,6 +93,7 @@ function AuthPage() {
             onSubmit={handleCheckOTP}
             time={time}
             onResendOTP={handleSendOTP}
+            otpResponse={otpResponse}
           />
         );
       default:
