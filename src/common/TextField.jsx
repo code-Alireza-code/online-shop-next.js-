@@ -5,6 +5,7 @@ function TextField({
   onChange,
   type = "text",
   dir = "rtl",
+  ...rest
 }) {
   return (
     <div>
@@ -20,6 +21,7 @@ function TextField({
         name={name}
         id={name}
         dir={dir}
+        {...rest}
       />
     </div>
   );
