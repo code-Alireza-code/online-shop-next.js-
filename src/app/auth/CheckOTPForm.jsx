@@ -1,4 +1,6 @@
 import OTPInput from "react-otp-input";
+import { HiArrowNarrowRight } from "react-icons/hi";
+import { CiEdit } from "react-icons/ci";
 
 function CheckOTPForm({
   onSubmit,
@@ -11,15 +13,16 @@ function CheckOTPForm({
 }) {
   return (
     <div>
-      <button onClick={onBack} className="w-8 h-8 ">
-        &rarr;
+      <button onClick={onBack} className="mb4">
+        <HiArrowNarrowRight className="w-6 h-6 text-secondary-500" />
       </button>
       {otpResponse && (
-        <div className="space-y-1">
+        <div className="space-y-1 ">
           <p>{otpResponse?.message}</p>
           شماره موبایل اشتباه است؟
           <button onClick={onBack} className="underline text-primary-900">
             ویرایش
+            <CiEdit className="inline-block w-6 h-6" />
           </button>
         </div>
       )}
