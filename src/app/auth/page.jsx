@@ -13,21 +13,23 @@ const RESEND_TIME = 90;
 function AuthPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [time, setTime] = useState(RESEND_TIME);
   const router = useRouter();
 
   const {
-    isPending: isSending,
+    isPending: isSendingOtp,
     mutateAsync: mutateSendOtp,
     data: otpResponse,
   } = useMutation({
     mutationFn: getOtpApi,
   });
 
-  const { isPending: isChecking, mutateAsync: mutatecheckOtp } = useMutation({
-    mutationFn: checkotpApi,
-  });
+  const { isPending: isCheckingOtp, mutateAsync: mutatecheckOtp } = useMutation(
+    {
+      mutationFn: checkotpApi,
+    }
+  );
 
   const handlePhoneNumber = (e) => {
     setPhoneNumber(e.target.value);
@@ -88,7 +90,7 @@ function AuthPage() {
             phoneNumber={phoneNumber}
             onChange={handlePhoneNumber}
             onSubmit={handleSendOTP}
-            isLoading={isSending}
+            isSendingOtp={isSendingOtp}
           />
         );
       case 2:
@@ -101,6 +103,7 @@ function AuthPage() {
             time={time}
             onResendOTP={handleSendOTP}
             otpResponse={otpResponse}
+            isCheckingOtp={isCheckingOtp}
           />
         );
       default:

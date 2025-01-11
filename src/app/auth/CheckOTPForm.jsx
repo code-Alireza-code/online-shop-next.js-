@@ -10,6 +10,7 @@ function CheckOTPForm({
   time,
   onResendOTP,
   otpResponse,
+  isCheckingOtp,
 }) {
   return (
     <div>
@@ -61,8 +62,14 @@ function CheckOTPForm({
             </button>
           )}
         </div>
-        <button type="submit" className="btn btn--primary w-full">
-          تایید
+        <button
+          type="submit"
+          disabled={isCheckingOtp}
+          className={`btn btn--primary w-full ${
+            isCheckingOtp ? "bg-gray-400 hover:bg-gray-400" : ""
+          }`}
+        >
+          {isCheckingOtp ? "درحال بررسی کد تایید" : "تایید"}
         </button>
       </form>
     </div>
