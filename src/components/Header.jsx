@@ -1,8 +1,18 @@
+"use client";
+
+import { useGetUser } from "@/hooks/useAuth";
 import Link from "next/link";
 
 function Header() {
+  const { data, error, isLoading } = useGetUser();
+  const { user, cart } = data || {};
+
   return (
-    <header className="shadow-md mb-10">
+    <header
+      className={`shadow-md mb-10 sticky top-0 transition-all duration-300${
+        isLoading ? "blur-sm opacity-20" : "blur-0 opacity-100"
+      }`}
+    >
       <nav>
         <ul className="flex items-center justify-between py-2 container xl:max-w-screen-xl">
           <li>
@@ -16,9 +26,18 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/auth" className="block py-2">
-              ورود
+            <Link href="/products" className="block py-2">
+              سبد خرید({cart && cart.payDetail.productIds.length})
             </Link>
+          </li>
+          <li>
+            {user ? (
+              <span>{data.user.name}</span>
+            ) : (
+              <Link href="/auth" className="block py-2">
+                ورود
+              </Link>
+            )}
           </li>
         </ul>
       </nav>
