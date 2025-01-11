@@ -1,17 +1,36 @@
 "use client";
 
 import TextField from "@/common/TextField";
+import { completeProfile } from "@/services/authService";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 function CompleteProfilePage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
   } = useForm();
 
-  const handleCompleteProfile = (formData, e) => {
+  const { mutateAsync, isPending, data, error } = useMutation({
+    mutationFn: completeProfile,
+  });
+  console.log({ data, error });
+
+  const handleCompleteProfile = async (formData, e) => {
     e.preventDefault();
+    try {
+      const { message, user } = await mutateAsync(formData);
+      toast.success(message);
+      router.push("/");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "خطا در هنگام تایید اطلاعات"
+      );
+    }
   };
 
   return (
@@ -44,12 +63,12 @@ function CompleteProfilePage() {
           )}
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isPending}
             className={`btn btn--primary w-full ${
-              isLoading && "bg-gray-400 hover:bg-gray-400 cursor-not-allowed"
+              isPending && "bg-gray-400 hover:bg-gray-400 cursor-not-allowed"
             }`}
           >
-            {isLoading ? "در حال ارسال اطلاعات" : "تایید اطلاعات"}
+            {isPending ? "در حال ارسال اطلاعات" : "تایید اطلاعات"}
           </button>
         </form>
       </div>

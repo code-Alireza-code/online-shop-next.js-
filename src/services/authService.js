@@ -9,3 +9,9 @@ export async function checkotpApi(data) {
   await new Promise((res) => setTimeout(res, 1000));
   return http.post("/user/check-otp", data).then(({ data }) => data.data);
 }
+
+export async function completeProfile(data) {
+  return http
+    .post("/user/complete-profile", data)
+    .then(({ data }) => data.data);
+}
