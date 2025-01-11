@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { checkotpApi, getOtpApi } from "@/services/authService";
 import CheckOTPForm from "./CheckOTPForm";
+import { useRouter } from "next/navigation";
 const RESEND_TIME = 90;
 
 function AuthPage() {
@@ -14,6 +15,7 @@ function AuthPage() {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(2);
   const [time, setTime] = useState(RESEND_TIME);
+  const router = useRouter();
 
   const {
     isPending: isSending,
@@ -54,8 +56,13 @@ function AuthPage() {
   const handleCheckOTP = async (e) => {
     e.preventDefault();
     try {
-      const data = await mutatecheckOtp({ phoneNumber, otp });
-      toast.success(data.message);
+      const { message, user } = await mutatecheckOtp({ phoneNumber, otp });
+      toast.success(message);
+      if (user.isActive) {
+        router.push("/");
+      } else {
+        router.push("/complete-profile");
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message | "کد تایید اشتباه است");
     }
