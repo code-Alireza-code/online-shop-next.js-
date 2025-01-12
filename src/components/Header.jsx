@@ -26,6 +26,16 @@ function Header() {
             </Link>
           </li>
           <li>
+            <Link href="/profile" className="block py-2">
+              پنل کاربر
+            </Link>
+          </li>
+          <li>
+            <Link href="/admin" className="block py-2">
+              پنل ادمین
+            </Link>
+          </li>
+          <li>
             <Link href="/products" className="block py-2">
               سبد خرید({cart && cart.payDetail.productIds.length})
             </Link>
