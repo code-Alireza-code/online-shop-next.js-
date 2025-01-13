@@ -9,7 +9,7 @@ function TextField({
 }) {
   return (
     <div>
-      <label className="block mb-4" htmlFor={name}>
+      <label className="block mb-2" htmlFor={name}>
         {label}
       </label>
       <input
