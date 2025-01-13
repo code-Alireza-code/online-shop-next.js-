@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/common/Loading";
 import TextField from "@/common/TextField";
 import { useGetUser } from "@/hooks/useAuth";
 import { includeObj } from "@/utils/objectUtils";
@@ -24,7 +25,7 @@ function MePage() {
     console.log(formData);
   };
 
-  if (isLoading) return <p>loading....</p>;
+  if (isLoading) return <Loading />;
   return (
     <div className="max-w-sm">
       <h1 className="mb-8">اطلاعات کاربری</h1>
