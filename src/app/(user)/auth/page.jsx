@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { checkotpApi, getOtpApi } from "@/services/authService";
 import CheckOTPForm from "./CheckOTPForm";
 import { useRouter } from "next/navigation";
+import toEnglishDigits from "@/utils/toEnglishDigits";
 const RESEND_TIME = 90;
 
 function AuthPage() {
@@ -16,7 +17,6 @@ function AuthPage() {
   const [step, setStep] = useState(1);
   const [time, setTime] = useState(RESEND_TIME);
   const router = useRouter();
-
   const {
     isPending: isSendingOtp,
     mutateAsync: mutateSendOtp,
@@ -38,12 +38,14 @@ function AuthPage() {
   const handleSendOTP = async (e) => {
     e.preventDefault();
 
-    if (!phoneNumber || phoneNumber.at(0) != 0 || phoneNumber.length !== 11) {
+    if (!phoneNumber || phoneNumber.length !== 11) {
       toast.error("شماره به درستی وارد نشده است");
       return;
     }
     try {
-      const data = await mutateSendOtp({ phoneNumber });
+      const data = await mutateSendOtp({
+        phoneNumber: toEnglishDigits(phoneNumber),
+      });
       toast.success(data.message);
       setStep(2);
       setTime(RESEND_TIME);
@@ -71,6 +73,7 @@ function AuthPage() {
   };
 
   useEffect(() => {
+    if (step !== 2) return;
     const timer =
       time > 0 &&
       setInterval(() => {
@@ -80,7 +83,7 @@ function AuthPage() {
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [time]);
+  }, [time, step]);
 
   const renderSteps = () => {
     switch (step) {
