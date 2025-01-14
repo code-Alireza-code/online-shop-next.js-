@@ -19,3 +19,7 @@ export async function completeProfile(data) {
 export async function getUserProfileApi() {
   return http.get("/user/profile").then(({ data }) => data.data);
 }
+
+export async function updateUserProfileApi(data) {
+  return http.patch("/user/update", data).then(({ data }) => data.data);
+}
