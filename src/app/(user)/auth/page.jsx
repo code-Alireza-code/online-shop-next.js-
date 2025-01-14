@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import SendOTPForm from "./SendOTPForm";
 import http from "@/services/httpService";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { checkotpApi, getOtpApi } from "@/services/authService";
 import CheckOTPForm from "./CheckOTPForm";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,7 @@ function AuthPage() {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const [time, setTime] = useState(RESEND_TIME);
+  const queryClient = useQueryClient();
   const router = useRouter();
   const {
     isPending: isSendingOtp,
@@ -62,6 +63,7 @@ function AuthPage() {
     try {
       const { message, user } = await mutatecheckOtp({ phoneNumber, otp });
       toast.success(message);
+      queryClient.invalidateQueries({ queryKey: ["get-user"] });
       if (user.isActive) {
         router.push("/");
       } else {
