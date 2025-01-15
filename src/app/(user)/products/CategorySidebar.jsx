@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import ProductFilter from "./ProductFilter";
+import ProductSort from "./ProductSort";
 
 function CategorySidebar({ categories }) {
   const searchParams = useSearchParams();
@@ -54,6 +55,7 @@ function CategorySidebar({ categories }) {
         selectedCategories={selectedCategories}
         categories={categories}
       />
+      <ProductSort />
     </div>
   );
 }
