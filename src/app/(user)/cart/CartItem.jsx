@@ -13,7 +13,7 @@ function CartItem({ product }) {
           <button>
             <HiOutlineTrash className="w-5 h-5 text-rose-500" />
           </button>
-          <button className="border-2 text-primary-900 border-primary-900 rounded ">
+          <button className="border-2 text-gray-600 border-gray-300 rounded ">
             <HiMinus className="w-5 h-5 " />
           </button>
         </div>
