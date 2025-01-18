@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <header
-      className={`shadow-md mb-10 sticky top-0 transition-all duration-300${
+      className={`shadow-md mb-10 sticky z-10  bg-white top-0 transition-all duration-300${
         isLoading ? "blur-sm opacity-20" : "blur-0 opacity-100"
       }`}
     >
