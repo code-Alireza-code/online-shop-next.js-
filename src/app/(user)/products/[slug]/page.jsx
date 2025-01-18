@@ -1,4 +1,5 @@
 import { getAllProducts, getProductBySlug } from "@/services/productService";
+import AddToCart from "./AddToCart";
 
 export const dynamicParams = false;
 
@@ -35,7 +36,7 @@ async function page({ params }) {
         </div>
       )}
       <div>
-        <button className="btn btn--primary">اضافه کردن به سبد خرید</button>
+        <AddToCart product={product} />
       </div>
     </div>
   );
