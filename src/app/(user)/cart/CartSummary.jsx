@@ -1,9 +1,7 @@
+import discountCalculator from "@/utils/dicountCalculator";
+
 function CartSummary({ payDetail }) {
   const { totalOffAmount, totalPrice, totalGrossPrice } = payDetail;
-
-  const calcOffPercent = (realPrice, offPrice) => {
-    return (((realPrice - offPrice) * 100) / realPrice).toFixed(2);
-  };
 
   return (
     <div className="border px-4 py-8 rounded-es-lg flex flex-col gap-y-6 text-sm">
@@ -17,7 +15,8 @@ function CartSummary({ payDetail }) {
       </div>
       <div className="flex items-center justify-between text-rose-500 font-semibold">
         <span>
-          سود شما از خرید ({calcOffPercent(totalGrossPrice, totalPrice)}%)
+          سود شما از خرید ({discountCalculator(totalGrossPrice, totalPrice)}
+          %)
         </span>
         <span>{totalOffAmount}تومان</span>
       </div>
