@@ -54,6 +54,9 @@
   .btn--primary {
     @apply px-4 py-3 bg-primary-900 text-white hover:bg-primary-800 shadow-lg shadow-primary-300;
   }
+  .btn--secondary {
+    @apply px-4 py-3 bg-white text-primary-900 hover:bg-primary-100/35 border border-primary-900 shadow-sm shadow-primary-300;
+  }
   .table__th {
     @apply border-b-2 border-b-gray-500 font-medium p-3 pr-8 pb-3 text-right;
   }
