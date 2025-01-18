@@ -4,6 +4,7 @@ import Loading from "@/common/Loading";
 import { useGetUser } from "@/hooks/useAuth";
 import { useAddToCart } from "@/hooks/useCart";
 import { useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
@@ -13,8 +14,12 @@ function AddToCart({ product }) {
   const { data: userData } = useGetUser();
   const { user } = userData || {};
   const queryClient = useQueryClient();
-
   const { isPending, mutateAsync } = useAddToCart();
+
+  const isInCart = (user, product) => {
+    if (!user) return false;
+    return user.cart?.products.some((p) => p.productId == product._id);
+  };
 
   const handleAddToCart = async () => {
     if (!user)
@@ -54,10 +59,16 @@ function AddToCart({ product }) {
 
   return (
     <div className="flex justify-start">
-      {isPending ? (
+      {isInCart(user, product) ? (
+        <button className="btn btn--secondary">
+          <Link href="/cart" className="text-sm">
+            ادامه سفارش در سبد خرید
+          </Link>
+        </button>
+      ) : isPending ? (
         <Loading />
       ) : (
-        <button onClick={handleAddToCart} className="btn btn--primary">
+        <button onClick={handleAddToCart} className="btn btn--primary text-sm">
           اضافه کردن به سبد خرید
         </button>
       )}

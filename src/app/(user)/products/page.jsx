@@ -4,6 +4,7 @@ import CategorySidebar from "./CategorySidebar";
 import queryString from "query-string";
 import { toLocalDateString } from "@/utils/toLocalDate";
 import Link from "next/link";
+import AddToCart from "./[slug]/AddToCart";
 
 async function ProductPage({ searchParams }) {
   const { products } = await getAllProducts(
@@ -21,7 +22,7 @@ async function ProductPage({ searchParams }) {
             {products.map((product) => (
               <div
                 key={product._id}
-                className="col-span-1 border rounded-xl shadow-md p-4"
+                className="col-span-1 border rounded-xl shadow-md p-4 space-y-6"
               >
                 <h2 className="font-bold text-xl mb-4">{product.title}</h2>
                 <div className="mb-4">
@@ -36,6 +37,7 @@ async function ProductPage({ searchParams }) {
                 >
                   مشاهده محصول
                 </Link>
+                <AddToCart product={product} />
               </div>
             ))}
           </div>
