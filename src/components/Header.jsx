@@ -4,7 +4,7 @@ import { useGetUser } from "@/hooks/useAuth";
 import Link from "next/link";
 
 function Header() {
-  const { data, error, isLoading } = useGetUser();
+  const { data, isLoading } = useGetUser();
   const { user, cart } = data || {};
 
   return (
@@ -36,7 +36,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link href="/products" className="block py-2">
+            <Link href="/cart" className="block py-2">
               سبد خرید({cart && cart.payDetail.productIds.length})
             </Link>
           </li>
