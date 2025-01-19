@@ -5,10 +5,16 @@ import queryString from "query-string";
 import { toLocalDateString } from "@/utils/toLocalDate";
 import Link from "next/link";
 import AddToCart from "./[slug]/AddToCart";
+import LikeProduct from "./[slug]/LikeProduct";
+import { cookies } from "next/headers";
+import toStringCookies from "@/utils/toStringCookies";
 
 async function ProductPage({ searchParams }) {
+  const cookieStore = await cookies();
+  const strCookies = toStringCookies(cookieStore);
   const { products } = await getAllProducts(
-    queryString.stringify(await searchParams)
+    queryString.stringify(await searchParams),
+    strCookies
   );
   const { categories } = await getAllCategories();
 
@@ -24,7 +30,10 @@ async function ProductPage({ searchParams }) {
                 key={product._id}
                 className="col-span-1 border rounded-xl shadow-md p-4 space-y-6"
               >
-                <h2 className="font-bold text-xl mb-4">{product.title}</h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="font-bold text-xl mb-4">{product.title}</h2>
+                  <LikeProduct product={product} />
+                </div>
                 <div className="mb-4">
                   <span>تاریخ ساخت : </span>
                   <span className="font-bold">
