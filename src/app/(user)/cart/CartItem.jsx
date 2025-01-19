@@ -2,6 +2,10 @@
 import { useAddToCart } from "@/hooks/useCart";
 import { removeFromCartApi } from "@/services/cartService";
 import { getProductById } from "@/services/productService";
+import {
+  toPersianNumbers,
+  toPersianNumbersWithComma,
+} from "@/utils/toPersianNumbers";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { HiMinus, HiOutlineTrash, HiPlus } from "react-icons/hi";
@@ -60,9 +64,11 @@ function CartItem({ product }) {
         <span>قیمت :</span>
         {product.discount > 0 && (
           <>
-            <span className="font-bold">{product.offPrice}</span>
+            <span className="font-bold">
+              {toPersianNumbersWithComma(product.offPrice)}
+            </span>
             <div className=" text-white rounded-2xl px-2 py-1 flex items-center justify-center bg-red-500">
-              %{product.discount}
+              %{toPersianNumbers(product.discount)}
             </div>
           </>
         )}
@@ -71,11 +77,13 @@ function CartItem({ product }) {
             product.discount > 0 ? "line-through text-gray-600" : "font-bold"
           }`}
         >
-          {product.price}
+          {toPersianNumbersWithComma(product.price)}
         </span>
       </div>
       <div className="flex items-center justify-between gap-x-8">
-        <span className=" border-l-2 pl-4">تعداد : {product.quantity}</span>
+        <span className=" border-l-2 pl-4">
+          تعداد : {toPersianNumbers(product.quantity)}
+        </span>
         <div className="flex gap-x-2">
           <button
             className="bg-primary-900 text-white rounded p-1 disabled:cursor-not-allowed disabled:bg-gray-300"
