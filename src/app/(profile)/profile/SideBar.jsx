@@ -30,6 +30,9 @@ function SideBar() {
           <Link href="/profile">داشبورد</Link>
         </li>
         <li>
+          <Link href="/profile/payment">سفارشات</Link>
+        </li>
+        <li>
           <Link href="/profile/me">اطلاعات کاربری</Link>
         </li>
         <li>
