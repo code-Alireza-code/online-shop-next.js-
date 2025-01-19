@@ -28,7 +28,7 @@ function CartPage() {
     return (
       <div className="container lg:max-w-screen-lg">
         <p className="mb-4">سبد خرید خالی است !</p>
-        <Link href="/auth" className="text-lg font-bold text-primary-900">
+        <Link href="/products" className="text-lg font-bold text-primary-900">
           رفتن به صفحه محصولات
         </Link>
       </div>
