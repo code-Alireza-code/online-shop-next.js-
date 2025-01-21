@@ -2,11 +2,14 @@ import http from "./httpService";
 
 export async function getAllProducts(q = "", cookies = "") {
   return http
-    .get(`/product/list?${q}`, {
-      headers: {
-        Cookie: cookies,
-      },
-    })
+    .get(
+      `/product/list?${q}`,
+      cookies && {
+        headers: {
+          Cookie: cookies,
+        },
+      }
+    )
     .then(({ data }) => data.data);
 }
 
