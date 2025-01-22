@@ -24,3 +24,9 @@ export async function getProductById(id) {
 export async function likeProductApi(productId) {
   return http.post(`/product/like/${productId}`).then(({ data }) => data.data);
 }
+
+//# admin related functions
+
+export async function addNewProductApi(data) {
+  return http.post("/admin/product/add", data).then(({ data }) => data.data);
+}
