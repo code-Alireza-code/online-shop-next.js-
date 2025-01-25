@@ -38,7 +38,7 @@ function ProductListTable({ products }) {
               <td className="table__td">
                 {toPersianNumbers(product.countInStock)}
               </td>
-              <td className="table__td font-bold underline">
+              <td className="table__td font-bold underline flex justify-center">
                 <div className="flex items-center gap-x-3">
                   <Link href={`/admin/products/${product._id}`}>
                     <HiEye className="text-primary-900 w-6 h-6" />
