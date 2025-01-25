@@ -30,3 +30,9 @@ export async function likeProductApi(productId) {
 export async function addNewProductApi(data) {
   return http.post("/admin/product/add", data).then(({ data }) => data.data);
 }
+
+export async function updateProductApi({ id, formData }) {
+  return http
+    .patch(`/admin/product/update/${id}`, formData)
+    .then(({ data }) => data.data);
+}

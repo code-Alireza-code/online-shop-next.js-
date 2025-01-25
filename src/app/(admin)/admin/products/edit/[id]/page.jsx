@@ -3,13 +3,12 @@
 import Loading from "@/common/Loading";
 import TextField from "@/common/TextField";
 import { useGetCategories } from "@/hooks/useCategories";
-import { useAddProduct } from "@/hooks/useProducts";
-import { priceAfterDiscount } from "@/utils/dicountCalculator";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
-import toast from "react-hot-toast";
+import { useGetProductById, useUpdateProduct } from "@/hooks/useProducts";
+import { useParams, useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
 import { TagsInput } from "react-tag-input-component";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const productsFormData = [
   {
@@ -68,43 +67,59 @@ const productsFormData = [
   },
 ];
 
-function AddProductPage() {
-  const { data } = useGetCategories();
-  const { categories } = data || {};
-  const { mutateAsync, isLoading } = useAddProduct();
+function page() {
+  const { id } = useParams();
+  const { isLoadingProductData, data: productData } = useGetProductById(id);
+  const { product } = productData || {};
+  const { data: categoryData } = useGetCategories();
+  const { categories } = categoryData || {};
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
-    watch,
     control,
-    setValue,
+    reset,
   } = useForm();
-
-  const price = watch("price");
-  const discount = watch("discount");
+  const router = useRouter();
+  const { mutateAsync, isPending } = useUpdateProduct();
 
   useEffect(() => {
-    if (price && discount)
-      setValue("offPrice", priceAfterDiscount(price, discount));
-  }, [discount, price]);
+    if (product) {
+      reset({
+        title: product.title,
+        description: product.description,
+        slug: product.slug,
+        brand: product.brand,
+        price: product.price,
+        discount: product.discount,
+        offPrice: product.offPrice,
+        countInStock: product.countInStock,
+        imageLink: product.imageLink,
+        category: product.category._id,
+        tags: product.tags,
+      });
+    }
+  }, [product, reset]);
 
-  const handleAddProduct = async (formData, _e) => {
+  const handleEditProduct = async (formData) => {
     try {
-      const { message } = await mutateAsync(formData);
+      const { message } = await mutateAsync({ id, formData });
       toast.success(message);
-      reset();
+      router.push("/admin/products");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "خطا هنگام افزودن محصول");
+      toast.error(
+        error?.response?.data?.message || "خطا در هنگام ویرایش اطلاعات !"
+      );
     }
   };
 
+  if (isLoadingProductData) return <Loading />;
   return (
-    <div >
+    <div>
       <form
         noValidate
-        onSubmit={handleSubmit(handleAddProduct)}
+        onSubmit={handleSubmit(handleEditProduct)}
         className="max-w-screen-sm p-3 mr-4 flex flex-col gap-y-6"
       >
         {productsFormData.map((p) => (
@@ -160,11 +175,11 @@ function AddProductPage() {
           />
         </div>
         <div>
-          {isLoading ? (
+          {isPending ? (
             <Loading />
           ) : (
             <button type="submit" className="btn btn--primary">
-              اضافه کردن محصول
+              ویرایش محصول
             </button>
           )}
         </div>
@@ -173,4 +188,4 @@ function AddProductPage() {
   );
 }
 
-export default AddProductPage;
+export default page;
