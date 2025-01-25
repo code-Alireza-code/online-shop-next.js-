@@ -58,10 +58,10 @@
     @apply px-4 py-3 bg-white text-primary-900 hover:bg-primary-100/35 border border-primary-900 shadow-sm shadow-primary-300;
   }
   .table__th {
-    @apply border-b-2 border-b-gray-500 font-medium p-3 pr-8 pb-3 text-right;
+    @apply border-b-2 border-b-gray-500 font-medium p-3 pr-8 pb-3  text-center;
   }
   .table__td {
-    @apply border-b  border-b-gray-300 p-3 pr-8 pb-3 text-right;
+    @apply border-b  border-b-gray-300 p-3 pr-8 pb-3 text-center;
   }
   .badge {
     @apply whitespace-nowrap px-3 py-1 rounded-xl;
