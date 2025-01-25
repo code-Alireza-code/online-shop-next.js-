@@ -4,10 +4,10 @@ import {
   toPersianNumbersWithComma,
 } from "@/utils/toPersianNumbers";
 import Link from "next/link";
+import { HiEye, HiTrash } from "react-icons/hi";
+import { MdEdit } from "react-icons/md";
 
 function ProductListTable({ products }) {
-  console.log(products);
-
   return (
     <div className="shadow-sm overflow-auto my-8">
       <table className="border-collapse table-auto w-full min-w-[800px] text-sm">
@@ -23,7 +23,7 @@ function ProductListTable({ products }) {
         <tbody>
           {products?.map((product, index) => (
             <tr key={product._id}>
-              <td className="table__td">{index}</td>
+              <td className="table__td">{index + 1}</td>
               <td className="table__td ">{toPersianNumbers(product.title)}</td>
               <td className="table__td">{product.category.title}</td>
               <td className="table__td">
@@ -39,9 +39,19 @@ function ProductListTable({ products }) {
                 {toPersianNumbers(product.countInStock)}
               </td>
               <td className="table__td font-bold underline">
-                <Link href={`/admin/products/${product._id}`}>
-                  مشاهده جزییات
-                </Link>
+                <div className="flex items-center gap-x-3">
+                  <Link href={`/admin/products/${product._id}`}>
+                    <HiEye className="text-primary-900 w-6 h-6" />
+                  </Link>
+                  <button>
+                    <HiTrash className="text-rose-500 w-6 h-6" />
+                  </button>
+                  <button>
+                    <Link href={`/admin/products/edit/${product._id}`}>
+                      <MdEdit className="text-secondary-600 w-6 h-6" />
+                    </Link>
+                  </button>
+                </div>
               </td>
             </tr>
           ))}
