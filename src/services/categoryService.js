@@ -9,3 +9,7 @@ export async function getAllCategories() {
 export async function getCategoryById(id) {
   return http.get(`/category/${id}`).then(({ data }) => data.data);
 }
+
+export async function addNewCategory(data) {
+  return http.post("/admin/category/add", data).then(({ data }) => data.data);
+}

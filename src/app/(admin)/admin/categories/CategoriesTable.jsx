@@ -23,13 +23,15 @@ function CategoriesTable({ categories }) {
               <td className="table__td whitespace-nowrap font-bold">
                 {category.title}
               </td>
-              <td className="table__td">{category.description}</td>
+              <td className="table__td max-w-[200px] break-words">
+                {category.description}
+              </td>
               <td className="table__td">{category.englishTitle}</td>
               <td className="table__td">
                 <span className="badge badge--primary">{category.type}</span>
               </td>
-              <td className="table__td font-bold text-lg flex justify-center">
-                <div className="flex items-center gap-x-4">
+              <td className="table__td font-bold">
+                <div className="flex justify-center items-center gap-x-4">
                   <Link href={`/admin/categories/${category._id}`}>
                     <HiEye className="text-primary-900 w-6 h-6" />
                   </Link>
