@@ -19,3 +19,9 @@ export async function updateCategoryApi({ id, formData }) {
     .patch(`/admin/category/update/${id}`, formData)
     .then(({ data }) => data.data);
 }
+
+export async function removeCategoryApi(id) {
+  return http
+    .delete(`/admin/category/remove/${id}`)
+    .then(({ data }) => data.data);
+}
