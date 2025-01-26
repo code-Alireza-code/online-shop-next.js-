@@ -13,3 +13,9 @@ export async function getCategoryById(id) {
 export async function addNewCategory(data) {
   return http.post("/admin/category/add", data).then(({ data }) => data.data);
 }
+
+export async function updateCategoryApi({ id, formData }) {
+  return http
+    .patch(`/admin/category/update/${id}`, formData)
+    .then(({ data }) => data.data);
+}
