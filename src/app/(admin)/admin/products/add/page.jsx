@@ -72,6 +72,7 @@ function AddProductPage() {
   const { data } = useGetCategories();
   const { categories } = data || {};
   const { mutateAsync, isLoading } = useAddProduct();
+
   const {
     handleSubmit,
     register,
@@ -101,7 +102,7 @@ function AddProductPage() {
   };
 
   return (
-    <div >
+    <div>
       <form
         noValidate
         onSubmit={handleSubmit(handleAddProduct)}

@@ -36,3 +36,9 @@ export async function updateProductApi({ id, formData }) {
     .patch(`/admin/product/update/${id}`, formData)
     .then(({ data }) => data.data);
 }
+
+export async function removeProductApi(id) {
+  return http
+    .delete(`/admin/product/remove/${id}`)
+    .then(({ data }) => data.data);
+}

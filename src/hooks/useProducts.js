@@ -2,6 +2,7 @@ import {
   addNewProductApi,
   getAllProducts,
   getProductById,
+  removeProductApi,
   updateProductApi,
 } from "@/services/productService";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -25,3 +26,6 @@ export const useGetProductById = (id) =>
 
 export const useUpdateProduct = () =>
   useMutation({ mutationFn: updateProductApi });
+
+export const useRemoveProduct = () =>
+  useMutation({ mutationFn: removeProductApi });
