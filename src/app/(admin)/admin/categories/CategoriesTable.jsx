@@ -38,7 +38,7 @@ function CategoriesTable({ categories }) {
                   <button>
                     <HiTrash className="text-rose-600 w-6 h-6" />
                   </button>
-                  <Link href={`/admin/categories/edit/${category.id}`}>
+                  <Link href={`/admin/categories/edit/${category._id}`}>
                     <MdEdit className="w-6 h-6 text-secondary-600" />
                   </Link>
                 </div>
