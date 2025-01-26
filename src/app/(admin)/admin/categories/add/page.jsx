@@ -20,13 +20,31 @@ const categoriesFormData = [
   },
   {
     id: 3,
-    label: "نوع",
-    name: "type",
+    label: "توضیحات",
+    name: "description",
+  },
+];
+
+const catergoryTypes = [
+  {
+    id: 1,
+    label: "محصول",
+    value: "product",
+  },
+  {
+    id: 2,
+    label: "پست",
+    value: "post",
+  },
+  {
+    id: 3,
+    label: "تیکت",
+    value: "ticket",
   },
   {
     id: 4,
-    label: "توضیحات",
-    name: "description",
+    label: "نظرات",
+    value: "comment",
   },
 ];
 
@@ -72,6 +90,24 @@ function AddCategoryPage() {
             )}
           </div>
         ))}
+        <div>
+          <label className="block mb-2" htmlFor="type-select">
+            نوع
+          </label>
+          <select
+            className="textField__input"
+            name="type"
+            id="type-select"
+            {...register("type", { required: true })}
+          >
+            <option value="">یک دسته بندی انتخاب کنید</option>
+            {catergoryTypes.map((categoryType) => (
+              <option key={categoryType.id} value={categoryType.value}>
+                {categoryType.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div>
           {isPending ? (
             <Loading />
