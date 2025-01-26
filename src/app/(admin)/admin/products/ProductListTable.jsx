@@ -1,5 +1,6 @@
 import Loading from "@/common/Loading";
 import { productListTableTHeads } from "@/constants/tableHeads";
+import useOutsideClick from "@/hooks/useOutsideClick";
 import { useRemoveProduct } from "@/hooks/useProducts";
 import {
   toPersianNumbers,
@@ -101,13 +102,18 @@ function ProductListTable({ products }) {
 export default ProductListTable;
 
 function DeleteModal({ closeModal, handleDelete, isDeleting }) {
+  const ref = useOutsideClick(closeModal, "exception");
   return (
     <div>
       {/* backdrop */}
       <div className="w-full h-full absolute top-0 bg-gray-200 opacity-60 z-10"></div>
       <div className="z-20 absolute inset-0 flex items-center justify-center">
         {/* content */}
-        <div className="border border-gray-300 rounded-2xl bg-white flex flex-col justify-between gap-y-8 px-10 py-8">
+        <div
+          ref={ref}
+          data-id="exception"
+          className="border border-gray-300 rounded-2xl bg-white flex flex-col justify-between gap-y-8 px-10 py-8"
+        >
           <h1 className="font-bold text-lg">
             آیا از حذف این محصول مطمئن هستید ؟
           </h1>
