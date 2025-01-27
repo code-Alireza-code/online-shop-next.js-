@@ -7,7 +7,6 @@ import PaymentListTable from "./PaymentListTable";
 function page() {
   const { data, isLoading } = useGetAllPayments();
   const { payments } = data || {};
-  console.log(payments);
 
   if (isLoading) return <Loading />;
   return (
