@@ -7,3 +7,7 @@ export async function createPaymentApi() {
 export async function getAllPaymentsApi() {
   return http.get("/admin/payment/list").then(({ data }) => data.data);
 }
+
+export async function getPaymentById(id) {
+  return http.get(`/admin/payment/${id}`).then(({ data }) => data.data);
+}
