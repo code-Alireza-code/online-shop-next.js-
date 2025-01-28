@@ -8,7 +8,6 @@ import CouponListTable from "./CouponListTable";
 function page() {
   const { data, isLoading } = useGetAllCoupons();
   const { coupons } = data || {};
-  console.log(coupons);
 
   if (isLoading) return <Loading />;
   return (
@@ -17,7 +16,7 @@ function page() {
         <h1 className="text-xl font-bold mb-5">کدهای تخفیف</h1>
         <Link
           href="/admin/coupons/add"
-          className="font-bold text-primary-900 flex items-center gap-x-2"
+          className="font-bold text-primary-900 flex items-center gap-x-2 border px-2 py-1 border-primary-700 rounded-md  hover:bg-primary-100/60"
         >
           <HiPlusCircle className="w-6 h-6" />
           <span>افزودن کد تخفیف</span>

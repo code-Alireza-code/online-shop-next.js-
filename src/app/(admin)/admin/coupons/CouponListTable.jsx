@@ -30,6 +30,7 @@ function CouponListTable({ coupons }) {
               </td>
               <td className="table__td">
                 {toPersianNumbersWithComma(coupon.amount)}
+                {coupon.type === "percent" ? "%" : "تومان"}
               </td>
               <td className="table__td">
                 <div className="flex flex-col gap-y-1 max-h-[100px] overflow-y-auto">
