@@ -4,8 +4,11 @@ import Loading from "@/common/Loading";
 import TextField from "@/common/TextField";
 import { useAddCoupon } from "@/hooks/useCoupon";
 import { useGetProducts } from "@/hooks/useProducts";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import DatePicker from "react-multi-date-picker";
+import persian_fa from "react-date-object/locales/persian_fa";
+import persian from "react-date-object/calendars/persian";
 
 const couponFormData = [
   {
@@ -38,6 +41,7 @@ function page() {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm();
 
   const handleAddCoupon = async (formData) => {
@@ -92,14 +96,51 @@ function page() {
                 id="money"
                 name="discount-type"
                 value="fixedProduct"
-                {...register("type")}
+                {...register("type", { required: true })}
               />
               <label htmlFor="money">قیمت ثابت</label>
             </div>
           </div>
+          {errors.type && (
+            <span className="block text-error text-xs">
+              نوع کد تخفیف اجباری است !
+            </span>
+          )}
         </div>
         <div>
           {/* react-select package has a hydration error bug and can not be used until the bug fixes! */}
+        </div>
+        <div>
+          <Controller
+            name="expireDate"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { onChange, name, value } }) => (
+              <>
+                <DatePicker
+                  value={value || new Date()}
+                  onChange={(date) =>
+                    onChange(date.isValid ? new Date(date).toISOString() : "")
+                  }
+                  locale={persian_fa}
+                  calendar={persian}
+                  calendarPosition="left"
+                  style={{
+                    padding: "1.5rem 2rem",
+                    borderRadius: "0.75rem",
+                    backgroundColor: "#f3f4f6",
+                    outline: "none",
+                    border: "none",
+                  }}
+                />
+                {errors[name] && (
+                  <span className="block text-error text-xs">
+                    تعیین تاریخ انقضا اجباری است !
+                  </span>
+                )}
+              </>
+            )}
+          />
         </div>
         <div>
           {isPending ? (
