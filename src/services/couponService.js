@@ -7,3 +7,13 @@ export async function getAllCoupons() {
 export async function AddCouponApi(data) {
   return http.post("/admin/coupon/add", data).then(({ data }) => data.data);
 }
+
+export async function getCouponByIdApi(id) {
+  return http.get(`/admin/coupon/${id}`).then(({ data }) => data.data);
+}
+
+export async function editCouponApi({ id, data }) {
+  return http
+    .patch(`/admin/coupon/update/${id}`, data)
+    .then(({ data }) => data.data);
+}
