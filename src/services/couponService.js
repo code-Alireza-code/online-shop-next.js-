@@ -17,3 +17,9 @@ export async function editCouponApi({ id, data }) {
     .patch(`/admin/coupon/update/${id}`, data)
     .then(({ data }) => data.data);
 }
+
+export async function removeCouponApi(id) {
+  return http
+    .delete(`/admin/coupon/remove/${id}`)
+    .then(({ data }) => data.data);
+}
